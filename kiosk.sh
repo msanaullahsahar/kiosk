@@ -1,4 +1,7 @@
 #!/bin/bash
+# Get current directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Disable screen blanking and screensavers
 xset s noblank
 xset s off
@@ -8,8 +11,8 @@ xset -dpms
 unclutter -idle 0.5 -root &
 
 # Modify Chromium preferences to prevent error dialogs
-sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' /home/pi/.config/chromium/Default/Preferences
-sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' /home/pi/.config/chromium/Default/Preferences
+sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' $SCRIPT_DIR/.config/chromium/Default/Preferences
+sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' $SCRIPT_DIR/.config/chromium/Default/Preferences
 
 # Launch Chromium in kiosk mode
 /usr/bin/chromium-browser --noerrdialogs --disable-infobars --kiosk https://youtube.com &
